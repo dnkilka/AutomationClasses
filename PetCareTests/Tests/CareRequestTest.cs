@@ -12,7 +12,7 @@ namespace PetCareTests.Tests
     class CareRequestTest
     {
         [Test]
-        public void Test()
+        public void CareRequest_Test()
         {
             IWebDriver driver = new ChromeDriver();
             driver.Navigate().GoToUrl("http://nitro.duckdns.org/Pets/careRequest.html");
