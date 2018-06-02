@@ -1,8 +1,6 @@
 ﻿using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
-using System.Threading;
-using Shouldly;
 using System;
 using OpenQA.Selenium.Support.UI;
 
@@ -12,7 +10,7 @@ namespace PetCareTests.Tests
     class CareRequestTest
     {
         [Test]
-        public void Test()
+        public void CareRequest_Test()
         {
             IWebDriver driver = new ChromeDriver();
             driver.Navigate().GoToUrl("http://nitro.duckdns.org/Pets/careRequest.html");
@@ -22,7 +20,7 @@ namespace PetCareTests.Tests
             driver.FindElement(By.Id("firstName")).SendKeys("Iryna");
             driver.FindElement(By.Name("lastName")).SendKeys("Xxx");
             driver.FindElement(By.ClassName("phoneNumber")).SendKeys("2244225588");
-            driver.FindElement(By.XPath("//label[.='Email']/parent::div[1]/following-sibling::div[1]//input")).SendKeys("someEmail.com");
+            driver.FindElement(By.XPath("//div[@id='emailContainer']/input")).SendKeys("someEmail.com");
 
             //Click Animal Type checkboxes
             driver.FindElement(By.Id("cat")).Click();
@@ -35,8 +33,10 @@ namespace PetCareTests.Tests
 
             //Visits per day
             driver.FindElement(By.Id("visitSeveralTimesPerDay")).Click();
-
-            //Comments
+			var visitQuantitySelect = new SelectElement(driver.FindElement(By.Id("visitsPerDay")));
+            otherQuantitySelect.SelectByText("2");
+            
+			//Comments
             driver.FindElement(By.Id("comments")).SendKeys("Please be quiet, our spiders are easily scared");
 
             //Click Request button
