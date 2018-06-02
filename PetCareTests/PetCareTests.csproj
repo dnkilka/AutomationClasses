@@ -57,6 +57,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Pages\CareRequestPage.cs" />
+    <Compile Include="Pages\RequestSummaryPage.cs" />
     <Compile Include="Tests\CareRequestTest.cs" />
     <Compile Include="Tutorial.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

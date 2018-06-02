@@ -37,9 +37,9 @@ namespace PetCareTests.Pages
         private IWebElement FirstNameInput => _driver.FindElement(By.Id("firstName"));
         private IWebElement LastNameInput => _driver.FindElement(By.Name("lastName"));
         private IWebElement PhoneNumberInput => _driver.FindElement(By.ClassName("phoneNumber"));
-        private IWebElement EmailInput => _driver.FindElement(By.XPath("//label[.='Email']/parent::div[1]/following-sibling::div[1]//input"));
+        private IWebElement EmailInput => _driver.FindElement(By.XPath("//div[@id='emailContainer']/input"));
         private IWebElement CatCheckbox => _driver.FindElement(By.Id("cat"));
-        private SelectElement CatQuantityDropdown => new SelectElement(_driver.FindElement(By.Id("catQuantity"));
+        private SelectElement CatQuantityDropdown => new SelectElement(_driver.FindElement(By.Id("catQuantity")));
         private IWebElement OtherCheckbox => _driver.FindElement(By.Id("other"));
         private SelectElement OtherQuantityDropdown => new SelectElement(_driver.FindElement(By.Id("otherQuantity")));
         private IWebElement OneVisitPerDayRadio => _driver.FindElement(By.Id("visitOneTimePerDay"));
