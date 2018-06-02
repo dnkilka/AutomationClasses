@@ -24,6 +24,7 @@ namespace PetCareTests.Tests
             var customerEmail = "someEmail@gmail.com";
             var catsNumber = "2";
             var otherNumber = "3+";
+			var visitsPerDay = "2";
             var comment = "Please be quiet, our spiders are easily scared";
 
             //Fill out inputs
@@ -43,6 +44,8 @@ namespace PetCareTests.Tests
 
             //Visits per day
             driver.FindElement(By.Id("visitSeveralTimesPerDay")).Click();
+			var visitQuantitySelect = new SelectElement(driver.FindElement(By.Id("visitsPerDay")));
+            otherQuantitySelect.SelectByText(visitsPerDay);
 
             //Comments
             driver.FindElement(By.Id("comments")).SendKeys(comment);
