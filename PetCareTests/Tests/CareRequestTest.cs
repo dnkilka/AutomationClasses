@@ -30,7 +30,7 @@ namespace PetCareTests.Tests
             driver.FindElement(By.Id("firstName")).SendKeys(customerFirstName);
             driver.FindElement(By.Name("lastName")).SendKeys(customerLastName);
             driver.FindElement(By.ClassName("phoneNumber")).SendKeys(customerPhoneNumber);
-            driver.FindElement(By.XPath("//label[.='Email']/parent::div[1]/following-sibling::div[1]//input")).SendKeys(customerEmail);
+            driver.FindElement(By.XPath("//div[@id='emailContainer']/input")).SendKeys(customerEmail);
 
             //Click Animal Type checkboxes
             driver.FindElement(By.Id("cat")).Click();
