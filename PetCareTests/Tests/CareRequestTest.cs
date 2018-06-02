@@ -31,7 +31,7 @@ namespace PetCareTests.Tests
             driver.FindElement(By.Id("firstName")).SendKeys(customerFirstName);
             driver.FindElement(By.Name("lastName")).SendKeys(customerLastName);
             driver.FindElement(By.ClassName("phoneNumber")).SendKeys(customerPhoneNumber);
-            driver.FindElement(By.XPath("//label[.='Email']/parent::div[1]/following-sibling::div[1]//input")).SendKeys(customerEmail);
+            driver.FindElement(By.XPath("//div[@id='emailContainer']/input")).SendKeys(customerEmail);
 
             //Click Animal Type checkboxes
             driver.FindElement(By.Id("cat")).Click();
@@ -44,6 +44,8 @@ namespace PetCareTests.Tests
 
             //Visits per day
             driver.FindElement(By.Id("visitSeveralTimesPerDay")).Click();
+			var visitQuantitySelect = new SelectElement(driver.FindElement(By.Id("visitsPerDay")));
+            otherQuantitySelect.SelectByText(visitsPerDay);
 
             //Comments
             driver.FindElement(By.Id("comments")).SendKeys(comment);
