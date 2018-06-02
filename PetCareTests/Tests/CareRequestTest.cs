@@ -5,6 +5,9 @@ using System.Threading;
 using Shouldly;
 using System;
 using PetCareTests.Pages;
+using System.IO;
+using dnkLog4netHtmlReport;
+using log4net;
 
 namespace PetCareTests.Tests
 {
@@ -14,8 +17,20 @@ namespace PetCareTests.Tests
         [Test]
         public void Test()
         {
+			var baseDirectory = AppDomain.CurrentDomain.BaseDirectory.Trim('\\');
+			dnkLog4netHtmlReport.Config.Configure(
+			Path.Combine(Directory.GetParent(baseDirectory).Parent.Parent.Parent.FullName, "Results"),
+			new ReportMetaData
+			{
+				ReportName = "Test Execution Report TEST",
+				ReportCategory = "Test",
+				ReportEnvironment = "DEV"
+			});
+			Config.SetBrowser("Chrome");
+			var log = LogManager.GetLogger("myLoggerName");
             IWebDriver driver = new ChromeDriver();
             driver.Navigate().GoToUrl("http://nitro.duckdns.org/Pets/careRequest.html");
+			log.Info("Openning the url");
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
 
             var careRequestPage = new CareRequestPage(driver);
@@ -48,8 +63,16 @@ namespace PetCareTests.Tests
             //Verify data on the Request Summary pop-up
             var requestSummaryPage = new RequestSummaryPage(driver);
 
-            //Verify Page opened by checking page element is visible
-            Assert.IsTrue(requestSummaryPage.SummaryBlock.Displayed);
+			//Verify Page opened by checking page element is visible
+			if(requestSummaryPage.SummaryBlock.Displayed)
+			{
+				log.Pass("Summary block is displayed");
+			}
+			else
+			{
+				log.Fail("Summary block is NOT displayed");
+			}
+            
             requestSummaryPage.SummaryBlock.Displayed.ShouldBeTrue();
 
             //Verify Header text

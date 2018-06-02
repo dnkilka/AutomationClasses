@@ -34,6 +34,21 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="dnkLog4netHtmlReport, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\dnkLog4netHtmlReport.1.0.0.10\lib\net461\dnkLog4netHtmlReport.dll</HintPath>
+    </Reference>
+    <Reference Include="dnkLog4netHtmlReport.SeleniumWebDriver, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\dnkLog4netHtmlReport.SeleniumWebDriver.1.0.0.10\lib\net461\dnkLog4netHtmlReport.SeleniumWebDriver.dll</HintPath>
+    </Reference>
+    <Reference Include="dnkUtils, Version=1.0.0.42065, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\dnkUtils.1.0.0.42065\lib\net461\dnkUtils.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="nunit.framework, Version=3.10.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
       <HintPath>..\packages\NUnit.3.10.1\lib\net45\nunit.framework.dll</HintPath>
     </Reference>
@@ -57,6 +72,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GlobalTestSetup.cs" />
     <Compile Include="Pages\CareRequestPage.cs" />
     <Compile Include="Pages\RequestSummaryPage.cs" />
     <Compile Include="Tests\CareRequestTest.cs" />
@@ -64,6 +80,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="log4net.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
