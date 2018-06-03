@@ -45,7 +45,7 @@ namespace PetCareTests.Tests
             //Visits per day
             driver.FindElement(By.Id("visitSeveralTimesPerDay")).Click();
 			var visitQuantitySelect = new SelectElement(driver.FindElement(By.Id("visitsPerDay")));
-            otherQuantitySelect.SelectByText(visitsPerDay);
+            visitQuantitySelect.SelectByText(visitsPerDay);
 
             //Comments
             driver.FindElement(By.Id("comments")).SendKeys(comment);
