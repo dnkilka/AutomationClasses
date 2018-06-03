@@ -15,7 +15,7 @@ namespace PetCareTests.Tests
     class CareRequestTest
     {
         [Test]
-        public void Test()
+        public void CareRequest_Test()
         {
 			var baseDirectory = AppDomain.CurrentDomain.BaseDirectory.Trim('\\');
 			dnkLog4netHtmlReport.Config.Configure(
