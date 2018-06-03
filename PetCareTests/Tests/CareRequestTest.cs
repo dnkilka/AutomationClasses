@@ -45,7 +45,7 @@ namespace PetCareTests.Tests
             //Visits per day
             driver.FindElement(By.Id("visitSeveralTimesPerDay")).Click();
 			var visitQuantitySelect = new SelectElement(driver.FindElement(By.Id("visitsPerDay")));
-            otherQuantitySelect.SelectByText(visitsPerDay);
+            visitQuantitySelect.SelectByText(visitsPerDay);
 
             //Comments
             driver.FindElement(By.Id("comments")).SendKeys(comment);
@@ -61,7 +61,9 @@ namespace PetCareTests.Tests
             Assert.AreEqual("Request Summary", header);
             header.ShouldBe("Request Summary");
 
-            var firstName = driver.FindElement(By.XPath("//div[contains(.,'First Name:') and (contains(@class, 'summaryBlock'))]")).Text.Replace("First Name: ", "");
+			IWebElement firstNameDiv = driver.FindElement(By.XPath("//div[contains(.,'First Name:') and (contains(@class, 'summaryBlock'))]"));
+			string labelAndFirstNameValue = firstNameDiv.Text;
+            var firstName = labelAndFirstNameValue.Replace("First Name: ", "");
             Assert.AreEqual(customerFirstName, firstName);
 
             var lastName = driver.FindElement(By.XPath("//div[contains(.,'Last Name:') and (contains(@class, 'summaryBlock'))]")).Text.Replace("Last Name: ", "");
@@ -73,16 +75,25 @@ namespace PetCareTests.Tests
             var email = driver.FindElement(By.XPath("//div[contains(.,'Email') and (contains(@class, 'summaryBlock'))]")).Text.Replace("Email: ", "");
             Assert.AreEqual(customerEmail, email);
 
+			// Collect all text from the pop-up and verify number of cats
             var allText = driver.FindElement(By.ClassName("modal-content")).Text;
-            Assert.IsTrue(allText.Contains($"{catsNumber} cat(s)"));
+            Assert.IsTrue(allText.Contains(catsNumber + " cat(s)"));
             allText.Contains($"{catsNumber} cat(s)").ShouldBeTrue();
+
+			//Verify number of other animals
             Assert.IsTrue(allText.Contains($"{otherNumber} other animal(s)"));
+
+			//Verify visits per day
             Assert.IsTrue(allText.Contains($"{visitsPerDay} visits per day are required."));
+
+			//Verify comment
             Assert.IsTrue(allText.Contains(comment));
 
             //Click Close button
             driver.FindElement(By.XPath("//button[.='Close']")).Click();
             Thread.Sleep(1000);
+
+			//Verify the pop up is not displayed
             Assert.IsFalse(driver.FindElement(By.ClassName("summaryBlock")).Displayed);
             driver.FindElement(By.ClassName("summaryBlock")).Displayed.ShouldBeFalse();
             
