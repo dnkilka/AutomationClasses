@@ -27,7 +27,8 @@ namespace PetCareTests.Pages
         }
 
         // Good approach, but difficult syntax
-        /*private IWebElement FirstNameInput { get
+        /*private IWebElement FirstNameInput
+         { get
             {
                 return _driver.FindElement(By.Id("firstName"));
             }
