@@ -58,20 +58,12 @@ namespace PetCareTests.Tests
             header.ShouldBe("Request Summary");
 
             //Verify contact info
-            Assert.AreEqual(customerFirstName, requestSummaryPage.GetFirstName());
-            Assert.AreEqual(customerLastName, requestSummaryPage.GetLastName());
-            Assert.AreEqual(customerPhoneNumber, requestSummaryPage.GetPhoneNumber());
-            Assert.AreEqual(customerEmail, requestSummaryPage.GetEmail());
+            VerifyContactInformation(customerFirstName, requestSummaryPage, customerLastName, customerPhoneNumber, customerEmail);
 
-            //Verify all other information is populated correctly
-            var allText = requestSummaryPage.ModalContent.Text;
-            Assert.IsTrue(allText.Contains($"{catsNumber} cat(s)"));
-            allText.Contains($"{catsNumber} cat(s)").ShouldBeTrue();
-            Assert.IsTrue(allText.Contains($"{otherNumber} other animal(s)"));
-            Assert.IsTrue(allText.Contains($"{visitsPerDay} visits per day are required."));
-            Assert.IsTrue(allText.Contains(comment));
+	        //Verify all other information is populated correctly
+            VerifyOtherInformation(requestSummaryPage, catsNumber, otherNumber, visitsPerDay, comment);
 
-            //Click Close button and verify the page was closed
+	        //Click Close button and verify the page was closed
             requestSummaryPage.CloseButton.Click();
             Thread.Sleep(1000);
             Assert.IsFalse(requestSummaryPage.SummaryBlock.Displayed);
@@ -79,5 +71,25 @@ namespace PetCareTests.Tests
             
             driver.Quit();
         }
+
+	    private static void VerifyOtherInformation(RequestSummaryPage requestSummaryPage, string catsNumber, string otherNumber,
+		    string visitsPerDay, string comment)
+	    {
+		    var allText = requestSummaryPage.ModalContent.Text;
+		    Assert.IsTrue(allText.Contains($"{catsNumber} cat(s)"));
+		    allText.Contains($"{catsNumber} cat(s)").ShouldBeTrue();
+		    Assert.IsTrue(allText.Contains($"{otherNumber} other animal(s)"));
+		    Assert.IsTrue(allText.Contains($"{visitsPerDay} visits per day are required."));
+		    Assert.IsTrue(allText.Contains(comment));
+	    }
+
+	    private static void VerifyContactInformation(string customerFirstName, RequestSummaryPage requestSummaryPage,
+		    string customerLastName, string customerPhoneNumber, string customerEmail)
+	    {
+		    Assert.AreEqual(customerFirstName, requestSummaryPage.GetFirstName());
+		    Assert.AreEqual(customerLastName, requestSummaryPage.GetLastName());
+		    Assert.AreEqual(customerPhoneNumber, requestSummaryPage.GetPhoneNumber());
+		    Assert.AreEqual(customerEmail, requestSummaryPage.GetEmail());
+	    }
     }
 }
