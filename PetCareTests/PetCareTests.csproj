@@ -60,7 +60,8 @@
     <Compile Include="Pages\CareRequestPage.cs" />
     <Compile Include="Pages\RequestSummaryPage.cs" />
     <Compile Include="Tests\CareRequestTest.cs" />
-    <Compile Include="Tutorial.cs" />
+    <Compile Include="Tutorial\Strings.cs" />
+    <Compile Include="Tutorial\TestExample.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

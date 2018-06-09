@@ -1,10 +1,11 @@
-﻿using NUnit.Framework;
-using System;
+﻿using System;
+using NUnit.Framework;
 
-namespace PetCareTests
+// Test example
+namespace PetCareTests.Tutorial
 {
     [TestFixture]
-    public class Tutorial
+    public class TestExample
     {
         [Test]
         public void HelloWorld()
