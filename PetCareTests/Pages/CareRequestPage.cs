@@ -1,30 +1,30 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PetCareTests.Pages
 {
     public class CareRequestPage
     {
-        private readonly IWebDriver _driver;
+        private IWebDriver _driver;
 
         // Bad approach (a), because the code will try to find the elements every time when the page is created.
         // This is bad, because 
         // - sometimes elements appear when you perform some actions on the page
         // - you might not need all page elements
-        // private IWebElement FirstName_Input;
+        //private IWebElement FirstName_Input;
 
         public CareRequestPage(IWebDriver driver)
         {
             _driver = driver;
 
             // (a) continue:
-            // FirstName_Input = _driver.FindElement(By.Id("firstName"));
+            //FirstName_Input = _driver.FindElement(By.Id("firstName"));
         }
+
+//	    public void SetDriver(IWebDriver newValue)
+//	    {
+//		    _driver = newValue;
+//	    }
 
         // Good approach, but difficult syntax
         /*private IWebElement FirstNameInput
@@ -49,6 +49,7 @@ namespace PetCareTests.Pages
         private IWebElement CommentsTextArea => _driver.FindElement(By.Id("comments"));
         private IWebElement SendRequestButton => _driver.FindElement(By.Id("requestButton"));
 
+	
         public void FillOutContactInformation(string firstName, string lastName, string phone, string email)
         {
             FirstNameInput.SendKeys(firstName);
@@ -66,7 +67,7 @@ namespace PetCareTests.Pages
         public void RequestOtherCare(string numberOfOthers)
         {
             OtherCheckbox.Click();
-            CatQuantityDropdown.SelectByText(numberOfOthers);
+            OtherQuantityDropdown.SelectByText(numberOfOthers);
         }
 
         public void SetVisitsPerDay(string numberOfVisits)
@@ -87,10 +88,10 @@ namespace PetCareTests.Pages
             CommentsTextArea.SendKeys(comment);
         }
 
-        public void ClickRequestButton()
+        public RequestSummaryPage ClickRequestButton()
         {
             SendRequestButton.Click();
+	        return new RequestSummaryPage(_driver);
         }
-
     }
 }

@@ -1,9 +1,4 @@
 ﻿using OpenQA.Selenium;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PetCareTests.Pages
 {
@@ -24,5 +19,26 @@ namespace PetCareTests.Pages
         public IWebElement PhoneNumberRecord => _driver.FindElement(By.XPath("//div[contains(.,'Phone') and (contains(@class, 'summaryBlock'))]"));
         public IWebElement EmailRecord => _driver.FindElement(By.XPath("//div[contains(.,'Email') and (contains(@class, 'summaryBlock'))]"));
         public IWebElement CloseButton => _driver.FindElement(By.XPath("//button[.='Close']"));
-    }
+
+	    public string GetFirstName()
+	    {
+		    return FirstNameRecord.Text.Replace("First Name: ", "");
+		}
+
+	    public string GetLastName()
+	    {
+		    return LastNameRecord.Text.Replace("Last Name: ", "");
+	    }
+
+	    public string GetPhoneNumber()
+	    {
+		    return PhoneNumberRecord.Text.Replace("Phone #: ", "");
+
+	    }
+
+	    public string GetEmail()
+	    {
+		    return EmailRecord.Text.Replace("Email: ", "");
+		}
+	}
 }

@@ -58,14 +58,10 @@ namespace PetCareTests.Tests
             header.ShouldBe("Request Summary");
 
             //Verify contact info
-            var firstName = requestSummaryPage.FirstNameRecord.Text.Replace("First Name: ", "");
-            Assert.AreEqual(customerFirstName, firstName);
-            var lastName = requestSummaryPage.LastNameRecord.Text.Replace("Last Name: ", "");
-            Assert.AreEqual(customerLastName, lastName);
-            var phoneNumber = requestSummaryPage.PhoneNumberRecord.Text.Replace("Phone #: ", "");
-            Assert.AreEqual(customerPhoneNumber, phoneNumber);
-             var email = requestSummaryPage.EmailRecord.Text.Replace("Email: ", "");
-            Assert.AreEqual(customerEmail, email);
+            Assert.AreEqual(customerFirstName, requestSummaryPage.GetFirstName());
+            Assert.AreEqual(customerLastName, requestSummaryPage.GetLastName());
+            Assert.AreEqual(customerPhoneNumber, requestSummaryPage.GetPhoneNumber());
+            Assert.AreEqual(customerEmail, requestSummaryPage.GetEmail());
 
             //Verify all other information is populated correctly
             var allText = requestSummaryPage.ModalContent.Text;
