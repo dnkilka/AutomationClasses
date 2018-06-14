@@ -4,7 +4,12 @@ using OpenQA.Selenium.Chrome;
 using System.Threading;
 using Shouldly;
 using System;
+using Bogus;
+using PetCareTests.Configuration;
 using PetCareTests.Pages;
+using PetCareTests.Selenium;
+using PetCareTests.URL;
+using PetCareTests.Utils;
 
 namespace PetCareTests.Tests
 {
@@ -14,20 +19,30 @@ namespace PetCareTests.Tests
         [Test]
         public void CareRequest_Test()
         {
-            IWebDriver driver = new ChromeDriver();
+            IWebDriver driver = DriverUtils.CreateDriver();
+			
+			//URLs.OpenUrl(driver);
             driver.Navigate().GoToUrl("http://nitro.duckdns.org/Pets/careRequest.html");
+
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
 
             var careRequestPage = new CareRequestPage(driver);
 
-            var customerFirstName = "Iryna";
-            var customerLastName = "Shch";
-            var customerPhoneNumber = "2244225588";
-            var customerEmail = "someEmail@gmail.com";
+            // var customerFirstName = "Iryna";
+	        var faker = new Faker();
+	        var customerFirstName = faker.Name.FirstName();
+			var customerLastName = faker.Name.LastName();
+	        var customerPhoneNumber = faker.Phone.PhoneNumber("##########");
+	        var customerPhoneNumberAlt = UniqueValues.UniquePhoneNumber("2244");
+            var customerEmail = faker.Internet.Email();
             var catsNumber = "2";
             var otherNumber = "3+";
             var visitsPerDay = "2";
             var comment = "Please be quiet, our spiders are easily scared";
+
+			var random = new Random();
+	        var number = random.Next(1, 1000);
+
 
             //Fill out inputs
             careRequestPage.FillOutContactInformation(customerFirstName, customerLastName, customerPhoneNumber, customerEmail);
@@ -62,9 +77,10 @@ namespace PetCareTests.Tests
 
 	        //Verify all other information is populated correctly
             VerifyOtherInformation(requestSummaryPage, catsNumber, otherNumber, visitsPerDay, comment);
-
-	        //Click Close button and verify the page was closed
-            requestSummaryPage.CloseButton.Click();
+	        string[] data = { $"{catsNumber} cat(s)", $"{otherNumber} other animal(s)", $"{visitsPerDay} visits per day are required.", comment };
+	        VerifyOtherInformationAlternative(requestSummaryPage, data);
+			//Click Close button and verify the page was closed
+			requestSummaryPage.CloseButton.Click();
             Thread.Sleep(1000);
             Assert.IsFalse(requestSummaryPage.SummaryBlock.Displayed);
             requestSummaryPage.SummaryBlock.Displayed.ShouldBeFalse();
@@ -83,7 +99,18 @@ namespace PetCareTests.Tests
 		    Assert.IsTrue(allText.Contains(comment));
 	    }
 
-	    private static void VerifyContactInformation(string customerFirstName, RequestSummaryPage requestSummaryPage,
+	    private static void VerifyOtherInformationAlternative(RequestSummaryPage requestSummaryPage, string [] data)
+	    {
+		    var allText = requestSummaryPage.ModalContent.Text;
+
+		    for (var i = 0; i < data.Length; i++)
+		    {
+				Console.WriteLine("Checking presence of " + data[i]);
+			    allText.Contains(data[i]).ShouldBeTrue();
+			}
+	    }
+
+		private static void VerifyContactInformation(string customerFirstName, RequestSummaryPage requestSummaryPage,
 		    string customerLastName, string customerPhoneNumber, string customerEmail)
 	    {
 		    Assert.AreEqual(customerFirstName, requestSummaryPage.GetFirstName());
