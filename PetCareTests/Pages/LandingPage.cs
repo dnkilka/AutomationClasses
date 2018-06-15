@@ -11,7 +11,7 @@ namespace PetCareTests.Pages
             _driver = driver;
         }
         public IWebElement LandingPageHeader => _driver.FindElement(By.XPath("//h1[contains(., 'Alex's Pet Business')]"));
-        public IWebElement KittenHeader => _driver.FindElement(By.ClassName(“logo”));
+        public IWebElement KittenHeader => _driver.FindElement(By.ClassName("logo"));
         public IWebElement Paragraph1 => _driver.FindElement(By.XPath("//div[@class = 'par-size']/p"));
         public IWebElement Paragraph2 => _driver.FindElement(By.XPath("//div[@class = 'par-size']/p[2]"));
         public IWebElement Paragraph3 => _driver.FindElement(By.XPath("//div[@class = 'par-size']/p[3]"));
