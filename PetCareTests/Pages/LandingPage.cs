@@ -1,4 +1,4 @@
-﻿using System;
+﻿using OpenQA.Selenium;
 
 namespace PetCareTests.Pages
 {
@@ -16,7 +16,7 @@ namespace PetCareTests.Pages
         public IWebElement Paragraph2 => _driver.FindElement(By.XPath("//div[@class = 'par-size']/p[2]"));
         public IWebElement Paragraph3 => _driver.FindElement(By.XPath("//div[@class = 'par-size']/p[3]"));
         public IWebElement ContactLink => _driver.FindElement(By.XPath("//div[@class = 'par-size']/p[3]/a"));
-        public IWEbElement CatImage => _driver.FindElement(By.XPath("//div[@src = 'images/hcat.png']"));
+        public IWebElement CatImage => _driver.FindElement(By.XPath("//div[@src = 'images/hcat.png']"));
         public IWebElement DogImage => _driver.FindElement(By.XPath("//div[@src = 'images/dog.png']"));
     }
 }
