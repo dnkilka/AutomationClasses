@@ -1,11 +1,9 @@
 ﻿using NUnit.Framework;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
 using System.Threading;
 using Shouldly;
 using System;
 using Bogus;
-using PetCareTests.Configuration;
 using PetCareTests.Pages;
 using PetCareTests.Selenium;
 using PetCareTests.URL;
@@ -20,16 +18,15 @@ namespace PetCareTests.Tests
         public void CareRequest_Test()
         {
             IWebDriver driver = DriverUtils.CreateDriver();
-			
-			//URLs.OpenUrl(driver);
-            driver.Navigate().GoToUrl("http://nitro.duckdns.org/Pets/careRequest.html");
+	        driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
 
-            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
+			// Open Landing Page
+			var landingPage = URLs.OpenUrl(driver);
+           
+			//Open Care Request page
+            var careRequestPage = landingPage.ClickCareRequestLink();
 
-            var careRequestPage = new CareRequestPage(driver);
-
-            // var customerFirstName = "Iryna";
-	        var faker = new Faker();
+            var faker = new Faker();
 	        var customerFirstName = faker.Name.FirstName();
 			var customerLastName = faker.Name.LastName();
 	        var customerPhoneNumber = faker.Phone.PhoneNumber("##########");
@@ -39,10 +36,6 @@ namespace PetCareTests.Tests
             var otherNumber = "3+";
             var visitsPerDay = "2";
             var comment = "Please be quiet, our spiders are easily scared";
-
-			var random = new Random();
-	        var number = random.Next(1, 1000);
-
 
             //Fill out inputs
             careRequestPage.FillOutContactInformation(customerFirstName, customerLastName, customerPhoneNumber, customerEmail);
@@ -57,15 +50,12 @@ namespace PetCareTests.Tests
             //Comments
             careRequestPage.FillOutComments(comment);
 
-            //Click Request button
-            careRequestPage.ClickRequestButton();
-
-            //Verify data on the Request Summary pop-up
-            var requestSummaryPage = new RequestSummaryPage(driver);
+			//Open Request summary page
+	        var requestSummaryPage = careRequestPage.ClickRequestButton();
 
             //Verify Page opened by checking page element is visible
-            Assert.IsTrue(requestSummaryPage.SummaryBlock.Displayed);
-            requestSummaryPage.SummaryBlock.Displayed.ShouldBeTrue();
+            Assert.IsTrue(requestSummaryPage.IsSummaryBlockDisplayed());
+            requestSummaryPage.IsSummaryBlockDisplayed().ShouldBeTrue();
 
             //Verify Header text
             var header = requestSummaryPage.PageHeader.Text;
@@ -79,11 +69,12 @@ namespace PetCareTests.Tests
             VerifyOtherInformation(requestSummaryPage, catsNumber, otherNumber, visitsPerDay, comment);
 	        string[] data = { $"{catsNumber} cat(s)", $"{otherNumber} other animal(s)", $"{visitsPerDay} visits per day are required.", comment };
 	        VerifyOtherInformationAlternative(requestSummaryPage, data);
-			//Click Close button and verify the page was closed
+			
+	        //Click Close button and verify the page was closed
 			requestSummaryPage.CloseButton.Click();
             Thread.Sleep(1000);
-            Assert.IsFalse(requestSummaryPage.SummaryBlock.Displayed);
-            requestSummaryPage.SummaryBlock.Displayed.ShouldBeFalse();
+            Assert.IsFalse(requestSummaryPage.IsSummaryBlockDisplayed());
+            requestSummaryPage.IsSummaryBlockDisplayed().ShouldBeFalse();
             
             driver.Quit();
         }

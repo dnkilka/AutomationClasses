@@ -37,5 +37,17 @@ namespace PetCareTests.Utils
 			}
 			return new string(word);
 		}
+
+		/// <summary>
+		/// Generates a random number in the given range
+		/// For example if 'from' is 1, and 'to' is 100 - the generated number will be in range of [1-999]
+		/// </summary>
+	
+		public static int RandomNumber(int from, int to)
+		{
+			var random = new Random();
+			var number = random.Next(from, to);
+			return number;
+		}
 	}
 }

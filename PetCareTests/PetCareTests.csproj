@@ -63,14 +63,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configuration\Config.cs" />
+    <Compile Include="Pages\AboutMePage.cs" />
     <Compile Include="Pages\CareRequestPage.cs" />
+    <Compile Include="Pages\ContactMePage.cs" />
+    <Compile Include="Pages\LandingPage.cs" />
+    <Compile Include="Pages\PricesPage.cs" />
     <Compile Include="Pages\RequestSummaryPage.cs" />
     <Compile Include="Selenium\DriverUtils.cs" />
     <Compile Include="Tests\CareRequestTest.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tutorial\MyFirstClass.cs" />
     <Compile Include="Tutorial\Strings.cs" />
     <Compile Include="Tutorial\TestExample.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="URL\URLs.cs" />
     <Compile Include="Utils\UniqueValues.cs" />
   </ItemGroup>
@@ -81,6 +85,7 @@
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
