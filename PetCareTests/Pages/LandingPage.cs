@@ -28,5 +28,15 @@ namespace PetCareTests.Pages
 			CareRequestLink.Click();
 			return new CareRequestPage(_driver);
 	    }
+        
+        // TODO: remove after Irynka is done with the code for Navigation Bar
+        public IWebElement PricesLink => _driver.FindElement(By.LinkText("Prices"));
+
+        // TODO: remove after Irynka is done with the code for Navigation Bar
+        public PricesPage ClickPricesLink()
+        {
+            PricesLink.Click();
+            return new PricesPage(_driver);
+        }
     }
 }
