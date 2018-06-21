@@ -3,7 +3,7 @@ using OpenQA.Selenium;
 using System.Threading;
 using Shouldly;
 using System;
-using Bogus;
+using PetCareTest.Pages;
 using PetCareTests.Pages;
 using PetCareTests.Selenium;
 using PetCareTests.URL;
@@ -17,76 +17,72 @@ namespace PetCareTests.Tests
         [Test]
         public void CareRequest_Test()
         {
-            IWebDriver driver = DriverUtils.CreateDriver();
+	        IWebDriver driver = DriverUtils.CreateDriver();
 	        driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
 
-			// Open Landing Page
-			var landingPage = URLs.OpenUrl(driver);
-           
-			//Open Care Request page
-            var careRequestPage = landingPage.ClickCareRequestLink();
+	        try
+	        {
+				// Open Landing Page
+				var landingPage = URLs.OpenUrl(driver);
 
-			var customer = new Customer();
-            
-            var catsNumber = "2";
-            var otherNumber = "3+";
-            var visitsPerDay = "2";
-            var comment = "Please be quiet, our spiders are easily scared";
+				//Open Care Request page
+		        var navigationMenu = new Navigation_Menu(driver);
+		        var careRequestPage = navigationMenu.ClickCareRequestLink();
 
-            //Fill out inputs
-            careRequestPage.FillOutContactInformation(customer);
+				var customer = new Customer();
+				var catsNumber = "2";
+				var otherNumber = "3+";
+				var visitsPerDay = "2";
+				var comment = "Please be quiet, our spiders are easily scared";
 
-            //Click Animal Type checkboxes
-            careRequestPage.RequestCatCare(catsNumber);
-            careRequestPage.RequestOtherCare(otherNumber);
+				//Fill out inputs
+				careRequestPage.FillOutContactInformation(customer);
 
-            //Visits per day
-            careRequestPage.SetVisitsPerDay(visitsPerDay);
+				//Click Animal Type checkboxes
+				careRequestPage.RequestCatCare(catsNumber);
+				careRequestPage.RequestOtherCare(otherNumber);
 
-            //Comments
-            careRequestPage.FillOutComments(comment);
+				//Visits per day
+				careRequestPage.SetVisitsPerDay(visitsPerDay);
 
-			//Open Request summary page
-	        var requestSummaryPage = careRequestPage.ClickRequestButton();
+				//Comments
+				careRequestPage.FillOutComments(comment);
 
-            //Verify Page opened by checking page element is visible
-            Assert.IsTrue(requestSummaryPage.IsSummaryBlockDisplayed());
-            requestSummaryPage.IsSummaryBlockDisplayed().ShouldBeTrue();
+				//Open Request summary page
+				var requestSummaryPage = careRequestPage.ClickRequestButton();
 
-            //Verify Header text
-            var header = requestSummaryPage.PageHeader.Text;
-            Assert.AreEqual("Request Summary", header);
-            header.ShouldBe("Request Summary");
+				//Verify Page opened by checking page element is visible
+				requestSummaryPage.IsSummaryBlockDisplayed().ShouldBeTrue();
 
-            //Verify contact info
-            VerifyContactInformation(requestSummaryPage, customer);
+				//Verify Header text
+				var header = requestSummaryPage.PageHeader.Text;
+				header.ShouldBe("Request Summary");
 
-	        //Verify all other information is populated correctly
-            VerifyOtherInformation(requestSummaryPage, catsNumber, otherNumber, visitsPerDay, comment);
-	        string[] data = { $"{catsNumber} cat(s)", $"{otherNumber} other animal(s)", $"{visitsPerDay} visits per day are required.", comment };
-	        VerifyOtherInformationAlternative(requestSummaryPage, data);
-			
-	        //Click Close button and verify the page was closed
-			requestSummaryPage.CloseButton.Click();
-            Thread.Sleep(1000);
-            Assert.IsFalse(requestSummaryPage.IsSummaryBlockDisplayed());
-            requestSummaryPage.IsSummaryBlockDisplayed().ShouldBeFalse();
-            
-            driver.Quit();
+				//Verify contact info
+				VerifyContactInformation(requestSummaryPage, customer);
+
+				//Verify all other information is populated correctly
+				string[] data = { $"{catsNumber} cat(s)", $"{otherNumber} other animal(s)", $"{visitsPerDay} visits per day are required.", comment };
+				VerifyOtherInformation(requestSummaryPage, data);
+
+				//Click Close button and verify the page was closed
+				requestSummaryPage.CloseButton.Click();
+				Thread.Sleep(1000);
+				Assert.IsFalse(requestSummaryPage.IsSummaryBlockDisplayed());
+				requestSummaryPage.IsSummaryBlockDisplayed().ShouldBeFalse();
+			}
+	        catch (Exception e)
+	        {
+				Console.WriteLine(e);
+		        throw;
+	        }
+	        finally
+	        {
+		        driver.Quit();
+			}
         }
 
-	    private static void VerifyOtherInformation(RequestSummaryPage requestSummaryPage, string catsNumber, string otherNumber,
-		    string visitsPerDay, string comment)
-	    {
-		    var allText = requestSummaryPage.ModalContent.Text;
-		    Assert.IsTrue(allText.Contains($"{catsNumber} cat(s)"));
-		    allText.Contains($"{catsNumber} cat(s)").ShouldBeTrue();
-		    Assert.IsTrue(allText.Contains($"{otherNumber} other animal(s)"));
-		    Assert.IsTrue(allText.Contains($"{visitsPerDay} visits per day are required."));
-		    Assert.IsTrue(allText.Contains(comment));
-	    }
-
-	    private static void VerifyOtherInformationAlternative(RequestSummaryPage requestSummaryPage, string [] data)
+	    private static void VerifyOtherInformation(RequestSummaryPage requestSummaryPage, string [] data)
 	    {
 		    var allText = requestSummaryPage.ModalContent.Text;
 
