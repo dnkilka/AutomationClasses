@@ -16,6 +16,10 @@ namespace PetCareTests.Pages
         public IWebElement Paragraph1 => _driver.FindElement(By.XPath("//div[@class = 'par-size']/p"));
         public IWebElement Paragraph2 => _driver.FindElement(By.XPath("//div[@class = 'par-size']/p[2]"));
 
+        public string GetHeaderText()
+        {
+            return AboutMePageHeader.Text;
+        }
     }
 }
 

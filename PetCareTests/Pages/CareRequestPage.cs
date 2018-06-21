@@ -21,10 +21,10 @@ namespace PetCareTests.Pages
             //FirstName_Input = _driver.FindElement(By.Id("firstName"));
         }
 
-//	    public void SetDriver(IWebDriver newValue)
-//	    {
-//		    _driver = newValue;
-//	    }
+        //	    public void SetDriver(IWebDriver newValue)
+        //	    {
+        //		    _driver = newValue;
+        //	    }
 
         // Good approach, but difficult syntax
         /*private IWebElement FirstNameInput
@@ -35,6 +35,7 @@ namespace PetCareTests.Pages
         }*/
 
         // Good approach with good syntax
+        private IWebElement CareRequestPageHeader => _driver.FindElement(By.TagName("h1"));
         private IWebElement FirstNameInput => _driver.FindElement(By.Id("firstName"));
         private IWebElement LastNameInput => _driver.FindElement(By.Name("lastName"));
         private IWebElement PhoneNumberInput => _driver.FindElement(By.ClassName("phoneNumber"));
@@ -92,6 +93,11 @@ namespace PetCareTests.Pages
         {
             SendRequestButton.Click();
 	        return new RequestSummaryPage(_driver);
+        }
+
+        public string GetHeaderText()
+        {
+            return CareRequestPageHeader.Text;
         }
     }
 }
