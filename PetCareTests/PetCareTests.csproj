@@ -72,6 +72,7 @@
     <Compile Include="Selenium\DriverUtils.cs" />
     <Compile Include="Tests\CareRequestTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tests\LandingPageTest.cs" />
     <Compile Include="Tutorial\MyFirstClass.cs" />
     <Compile Include="Tutorial\Strings.cs" />
     <Compile Include="Tutorial\TestExample.cs" />
