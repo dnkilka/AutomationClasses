@@ -80,6 +80,7 @@
     <Compile Include="Tutorial\Strings.cs" />
     <Compile Include="Tutorial\TestExample.cs" />
     <Compile Include="URL\URLs.cs" />
+    <Compile Include="Utils\Customer.cs" />
     <Compile Include="Utils\UniqueValues.cs" />
   </ItemGroup>
   <ItemGroup>

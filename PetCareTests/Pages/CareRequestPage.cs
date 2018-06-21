@@ -1,5 +1,6 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
+using PetCareTests.Utils;
 
 namespace PetCareTests.Pages
 {
@@ -51,12 +52,12 @@ namespace PetCareTests.Pages
         private IWebElement SendRequestButton => _driver.FindElement(By.Id("requestButton"));
 
 	
-        public void FillOutContactInformation(string firstName, string lastName, string phone, string email)
+        public void FillOutContactInformation(Customer customer)
         {
-            FirstNameInput.SendKeys(firstName);
-            LastNameInput.SendKeys(lastName);
-            PhoneNumberInput.SendKeys(phone);
-            EmailInput.SendKeys(email);
+            FirstNameInput.SendKeys(customer.FirstName);
+            LastNameInput.SendKeys(customer.LastName);
+            PhoneNumberInput.SendKeys(customer.PhoneNumber);
+            EmailInput.SendKeys(customer.Email);
         }
 
         public void RequestCatCare(string numberOfCats)

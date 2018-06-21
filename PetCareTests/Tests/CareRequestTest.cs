@@ -26,19 +26,15 @@ namespace PetCareTests.Tests
 			//Open Care Request page
             var careRequestPage = landingPage.ClickCareRequestLink();
 
-            var faker = new Faker();
-	        var customerFirstName = faker.Name.FirstName();
-			var customerLastName = faker.Name.LastName();
-	        var customerPhoneNumber = faker.Phone.PhoneNumber("##########");
-	        var customerPhoneNumberAlt = UniqueValues.UniquePhoneNumber("2244");
-            var customerEmail = faker.Internet.Email();
+			var customer = new Customer();
+            
             var catsNumber = "2";
             var otherNumber = "3+";
             var visitsPerDay = "2";
             var comment = "Please be quiet, our spiders are easily scared";
 
             //Fill out inputs
-            careRequestPage.FillOutContactInformation(customerFirstName, customerLastName, customerPhoneNumber, customerEmail);
+            careRequestPage.FillOutContactInformation(customer);
 
             //Click Animal Type checkboxes
             careRequestPage.RequestCatCare(catsNumber);
@@ -63,7 +59,7 @@ namespace PetCareTests.Tests
             header.ShouldBe("Request Summary");
 
             //Verify contact info
-            VerifyContactInformation(customerFirstName, requestSummaryPage, customerLastName, customerPhoneNumber, customerEmail);
+            VerifyContactInformation(requestSummaryPage, customer);
 
 	        //Verify all other information is populated correctly
             VerifyOtherInformation(requestSummaryPage, catsNumber, otherNumber, visitsPerDay, comment);
@@ -101,13 +97,12 @@ namespace PetCareTests.Tests
 			}
 	    }
 
-		private static void VerifyContactInformation(string customerFirstName, RequestSummaryPage requestSummaryPage,
-		    string customerLastName, string customerPhoneNumber, string customerEmail)
+		private static void VerifyContactInformation(RequestSummaryPage requestSummaryPage, Customer customer)
 	    {
-		    Assert.AreEqual(customerFirstName, requestSummaryPage.GetFirstName());
-		    Assert.AreEqual(customerLastName, requestSummaryPage.GetLastName());
-		    Assert.AreEqual(customerPhoneNumber, requestSummaryPage.GetPhoneNumber());
-		    Assert.AreEqual(customerEmail, requestSummaryPage.GetEmail());
+		    Assert.AreEqual(customer.FirstName, requestSummaryPage.GetFirstName());
+		    Assert.AreEqual(customer.LastName, requestSummaryPage.GetLastName());
+		    Assert.AreEqual(customer.PhoneNumber, requestSummaryPage.GetPhoneNumber());
+		    Assert.AreEqual(customer.Email, requestSummaryPage.GetEmail());
 	    }
     }
 }

@@ -14,7 +14,6 @@ namespace PetCareTest.Pages
         public Navigation_Menu(IWebDriver driver)
         {
             _driver = driver;
-
         }
 
         public IWebElement AboutMe => _driver.FindElement(By.LinkText("About Me"));
