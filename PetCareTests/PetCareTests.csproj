@@ -70,6 +70,7 @@
     <Compile Include="Pages\PricesPage.cs" />
     <Compile Include="Pages\RequestSummaryPage.cs" />
     <Compile Include="Selenium\DriverUtils.cs" />
+    <Compile Include="Tests\ContactTest.cs" />
     <Compile Include="Tests\PricesTest.cs" />
     <Compile Include="Tests\CareRequestTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
