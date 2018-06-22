@@ -10,8 +10,9 @@ namespace PetCareTests.Pages
         {
             _driver = driver;
         }
-        public IWebElement LandingPageHeader => _driver.FindElement(By.XPath("//h1[contains(., 'Alex's Pet Business')]"));
+        public IWebElement LandingHeader => _driver.FindElement(By.XPath("//h1[contains(., 'Alex's Pet Business')]"));
         public IWebElement KittenHeader => _driver.FindElement(By.ClassName("logo"));
+        public IWebElement alltext => _driver.FindElement(By.XPath("//div[@class = 'par-size']"));
         public IWebElement Paragraph1 => _driver.FindElement(By.XPath("//div[@class = 'par-size']/p"));
         public IWebElement Paragraph2 => _driver.FindElement(By.XPath("//div[@class = 'par-size']/p[2]"));
         public IWebElement Paragraph3 => _driver.FindElement(By.XPath("//div[@class = 'par-size']/p[3]"));
@@ -19,7 +20,11 @@ namespace PetCareTests.Pages
         public IWebElement CatImage => _driver.FindElement(By.XPath("//p/img[@src = 'images/hcat.png']"));
         public IWebElement DogImage => _driver.FindElement(By.XPath("//p/img[@src = 'images/dog.png']"));
 
-		// TODO: remove after Irynka is done with the code for Navigation Bar
+       public string paragraphsText = "Do you live in Wilmette / Kenilworth / Evanston / Skokie / Winnetka? Going on vacation and need someone " +
+            "to take care of your pet? I am here to help. I will come over, feed and take care of your pet, walk and play with them. You need to " +
+            "be in biking range(2-3 miles) from Lake Ave and Ridge Rd intersection in Wilmette, IL. Please contact me about details.";
+
+        // TODO: remove after Irynka is done with the code for Navigation Bar
         public IWebElement CareRequestLink => _driver.FindElement(By.LinkText("Care Request"));
 
 	    // TODO: remove after Irynka is done with the code for Navigation Bar
