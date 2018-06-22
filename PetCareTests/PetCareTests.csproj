@@ -69,6 +69,7 @@
     <Compile Include="Pages\PricesPage.cs" />
     <Compile Include="Pages\RequestSummaryPage.cs" />
     <Compile Include="Selenium\DriverUtils.cs" />
+    <Compile Include="Tests\ContactTest.cs" />
     <Compile Include="Tests\NavigationMenuTest.cs" />
     <Compile Include="Tests\PicturesTest.cs" />
     <Compile Include="Tests\PricesTest.cs" />
