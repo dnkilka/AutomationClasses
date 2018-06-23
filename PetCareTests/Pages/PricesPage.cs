@@ -12,9 +12,26 @@ namespace PetCareTests.Pages
             _driver = driver;
         }
 
-        private IWebElement PricesHeader => _driver.FindElement(By.XPath("//h1[contains (.,'Prices')]")); 
-        private IWebElement PricesParagraph => _driver.FindElement(By.XPath("//div[@class='par-size']/ul/p")); 
-        private IWebElement PricesList => _driver.FindElement(By.XPath("//div[@class='par-size']/ul/li")); 
-        
+        public IWebElement PricesHeader => _driver.FindElement(By.XPath("//h1[contains (.,'Prices')]")); 
+        public IWebElement PricesParagraph => _driver.FindElement(By.XPath("//div[@class='par-size']/ul/p")); 
+        public IWebElement PricesList => _driver.FindElement(By.XPath("//div[@class='par-size']/ul/li"));
+
+
+        public string GetHeaderTitle()
+        {
+            return PricesHeader.Text;
+        }
+
+
+        public string GetFirstParagraph()
+        {
+            return PricesParagraph.Text;
+        }
+
+
+        public string GetPricesList()
+        {
+            return PricesList.Text;
+        }          
     }
 }

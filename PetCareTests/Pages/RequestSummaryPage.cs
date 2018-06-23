@@ -40,5 +40,10 @@ namespace PetCareTests.Pages
 	    {
 		    return EmailRecord.Text.Replace("Email: ", "");
 		}
+
+	    public bool IsSummaryBlockDisplayed()
+	    {
+		    return SummaryBlock.Displayed;
+	    }
 	}
 }

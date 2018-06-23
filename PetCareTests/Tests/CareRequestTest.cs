@@ -1,10 +1,13 @@
 ﻿using NUnit.Framework;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
 using System.Threading;
 using Shouldly;
 using System;
+using Bogus;
 using PetCareTests.Pages;
+using PetCareTests.Selenium;
+using PetCareTests.URL;
+using PetCareTests.Utils;
 
 namespace PetCareTests.Tests
 {
@@ -14,16 +17,21 @@ namespace PetCareTests.Tests
         [Test]
         public void CareRequest_Test()
         {
-            IWebDriver driver = new ChromeDriver();
-            driver.Navigate().GoToUrl("http://nitro.duckdns.org/Pets/careRequest.html");
-            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
+            IWebDriver driver = DriverUtils.CreateDriver();
+	        driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
 
-            var careRequestPage = new CareRequestPage(driver);
+			// Open Landing Page
+			var landingPage = URLs.OpenUrl(driver);
+           
+			//Open Care Request page
+            var careRequestPage = landingPage.ClickCareRequestLink();
 
-            var customerFirstName = "Iryna";
-            var customerLastName = "Shch";
-            var customerPhoneNumber = "2244225588";
-            var customerEmail = "someEmail@gmail.com";
+            var faker = new Faker();
+	        var customerFirstName = faker.Name.FirstName();
+			var customerLastName = faker.Name.LastName();
+	        var customerPhoneNumber = faker.Phone.PhoneNumber("##########");
+	        var customerPhoneNumberAlt = UniqueValues.UniquePhoneNumber("2244");
+            var customerEmail = faker.Internet.Email();
             var catsNumber = "2";
             var otherNumber = "3+";
             var visitsPerDay = "2";
@@ -42,15 +50,12 @@ namespace PetCareTests.Tests
             //Comments
             careRequestPage.FillOutComments(comment);
 
-            //Click Request button
-            careRequestPage.ClickRequestButton();
-
-            //Verify data on the Request Summary pop-up
-            var requestSummaryPage = new RequestSummaryPage(driver);
+			//Open Request summary page
+	        var requestSummaryPage = careRequestPage.ClickRequestButton();
 
             //Verify Page opened by checking page element is visible
-            Assert.IsTrue(requestSummaryPage.SummaryBlock.Displayed);
-            requestSummaryPage.SummaryBlock.Displayed.ShouldBeTrue();
+            Assert.IsTrue(requestSummaryPage.IsSummaryBlockDisplayed());
+            requestSummaryPage.IsSummaryBlockDisplayed().ShouldBeTrue();
 
             //Verify Header text
             var header = requestSummaryPage.PageHeader.Text;
@@ -62,12 +67,14 @@ namespace PetCareTests.Tests
 
 	        //Verify all other information is populated correctly
             VerifyOtherInformation(requestSummaryPage, catsNumber, otherNumber, visitsPerDay, comment);
-
+	        string[] data = { $"{catsNumber} cat(s)", $"{otherNumber} other animal(s)", $"{visitsPerDay} visits per day are required.", comment };
+	        VerifyOtherInformationAlternative(requestSummaryPage, data);
+			
 	        //Click Close button and verify the page was closed
-            requestSummaryPage.CloseButton.Click();
+			requestSummaryPage.CloseButton.Click();
             Thread.Sleep(1000);
-            Assert.IsFalse(requestSummaryPage.SummaryBlock.Displayed);
-            requestSummaryPage.SummaryBlock.Displayed.ShouldBeFalse();
+            Assert.IsFalse(requestSummaryPage.IsSummaryBlockDisplayed());
+            requestSummaryPage.IsSummaryBlockDisplayed().ShouldBeFalse();
             
             driver.Quit();
         }
@@ -83,7 +90,18 @@ namespace PetCareTests.Tests
 		    Assert.IsTrue(allText.Contains(comment));
 	    }
 
-	    private static void VerifyContactInformation(string customerFirstName, RequestSummaryPage requestSummaryPage,
+	    private static void VerifyOtherInformationAlternative(RequestSummaryPage requestSummaryPage, string [] data)
+	    {
+		    var allText = requestSummaryPage.ModalContent.Text;
+
+		    for (var i = 0; i < data.Length; i++)
+		    {
+				Console.WriteLine("Checking presence of " + data[i]);
+			    allText.Contains(data[i]).ShouldBeTrue();
+			}
+	    }
+
+		private static void VerifyContactInformation(string customerFirstName, RequestSummaryPage requestSummaryPage,
 		    string customerLastName, string customerPhoneNumber, string customerEmail)
 	    {
 		    Assert.AreEqual(customerFirstName, requestSummaryPage.GetFirstName());
