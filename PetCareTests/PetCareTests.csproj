@@ -57,6 +57,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Tutorial\HashSetExample.cs" />
     <Compile Include="Pages\AboutMePage.cs" />
     <Compile Include="Pages\CareRequestPage.cs" />
     <Compile Include="Pages\ContactMePage.cs" />
