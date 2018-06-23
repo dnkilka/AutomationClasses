@@ -81,7 +81,7 @@
     <Compile Include="Tests\AboutMeTest.cs" />
     <Compile Include="Tests\LandingPageTest.cs" />
     <Compile Include="Tutorial\MyFirstClass.cs" />
-    <Compile Include="Tutorial\Person.cs" />
+    <Compile Include="TestData\Person.cs" />
     <Compile Include="Tutorial\PracticalTasksTanya.cs" />
     <Compile Include="Tutorial\Strings.cs" />
     <Compile Include="Tutorial\TestExample.cs" />
