@@ -1,6 +1,5 @@
 ﻿using NUnit.Framework;
 using OpenQA.Selenium;
-using PetCareTests.Pages;
 using PetCareTests.Selenium;
 using PetCareTests.URL;
 using Shouldly;
@@ -13,10 +12,10 @@ using System.Threading.Tasks;
 namespace PetCareTests.Tests
 {
     [TestFixture]
-    public class LandingPageTest
+    public class AboutMeTest
     {
         [Test]
-        public void LandingPage_Test()
+        public void AboutMe_Test()
         {
             IWebDriver driver = DriverUtils.CreateDriver();
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
@@ -24,26 +23,18 @@ namespace PetCareTests.Tests
             // Open Landing Page
             var landingPage = URLs.OpenUrl(driver);
 
+            //Open About Me page
+            var aboutMePage = landingPage.ClickAboutMeLink();
 
             //Verify text on the page
-            var alltext = landingPage.AllText.Text;
-            alltext.ShouldBe(landingPage.paragraphsText);
-
+            var alltext = aboutMePage.AllText.Text;
+            alltext.ShouldBe(aboutMePage.paragraphsText);
 
             //Verify Header text
-            string header = landingPage.LandingHeader.Text;
-            header.ShouldBe("Alex's Pet Business");
-
-            //Verify images of the page
-            var image1 = landingPage.CatImage.Displayed;
-            var image2 = landingPage.DogImage.Displayed;
-            image1.ShouldBeTrue();
-            image2.ShouldBeTrue();
+            string header = aboutMePage.AboutMeHeader.Text;
+            header.ShouldBe("About Me");
 
             driver.Quit();
-            
         }
-
-
     }
 }

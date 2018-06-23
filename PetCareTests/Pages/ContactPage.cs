@@ -19,7 +19,7 @@ namespace PetCareTests.Pages
         public IWebElement EnvelopeImage => _driver.FindElement(By.XPath("//img[@src='images/mail.png']"));
 
 
-        public string GetHeaderTitle()
+        public string GetHeaderText()
         {
             return ContactHeader.Text;
         }

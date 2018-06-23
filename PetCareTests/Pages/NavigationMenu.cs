@@ -29,10 +29,10 @@ namespace PetCareTest.Pages
             return new PicturesPage(_driver);
         }
 
-        public ContactMePage ClickContactMeLink()
+        public ContactPage ClickContactMeLink()
         {
             Contact.Click();
-            return new ContactMePage(_driver);
+            return new ContactPage(_driver);
         }
 
         public AboutMePage ClickAboutMeLink()
