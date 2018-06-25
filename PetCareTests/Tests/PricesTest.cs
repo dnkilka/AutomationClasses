@@ -47,7 +47,7 @@ namespace PetCareTests.Tests
                 "Cats $10 per day",
                 "Bunnies/Rabits $10 per day",
                 "Hamster $8 per day",
-                "Rat/Mice $9 per day",
+                "Rat/Mice $8 per day",
                 "Guinea Pig $8 per day",
                 "Parott/Bird $8 per day",
                 "Fish $8 per day",
