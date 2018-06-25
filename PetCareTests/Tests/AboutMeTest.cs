@@ -27,7 +27,7 @@ namespace PetCareTests.Tests
             var aboutMePage = landingPage.ClickAboutMeLink();
 
             //Verify text on the page
-            var alltext = aboutMePage.AllText.Text;
+            var alltext = aboutMePage.GetAllText();
             alltext.ShouldBe(aboutMePage.paragraphsText);
 
             //Verify Header text
