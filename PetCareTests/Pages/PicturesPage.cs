@@ -17,8 +17,8 @@ namespace PetCareTest.Pages
         }
         public IWebElement PicturesHeader => _driver.FindElement(By.XPath("//h1[contains(., 'Pictures')]"));
         public IWebElement FirstParagraph => _driver.FindElement(By.XPath("//div[contains(@class, 'pictures-par')]//p")); // By.XPath("//p[contains(.,'I can take care')]")
-        public List<IWebElement> AllImages => _driver.FindElements(By.TagName("img")).ToList();
-
+        public List<IWebElement> AllImagesList => _driver.FindElements(By.TagName("img")).ToList();
+        
         public string GetHeaderText()
         {
             return PicturesHeader.Text;
@@ -27,6 +27,20 @@ namespace PetCareTest.Pages
         public string GetFirstParagraphText()
         {
             return FirstParagraph.Text;
+        }
+
+        public List<string> GetImagesSources()
+        {
+            var imagesSources = new List<string>();
+            var imagesList = AllImagesList;
+            for (int i = 0; i < imagesList.Count; i++)
+            {
+                var webElement = imagesList[i];
+                var source = webElement.GetAttribute("src");
+                imagesSources.Add(source);
+            }
+
+            return imagesSources;
         }
     }
 }

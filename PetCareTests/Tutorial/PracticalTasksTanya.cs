@@ -122,5 +122,67 @@ namespace PetCareTests.Tutorial
             //how to use iLike[2]?
             return name1 == name2;
         }
+
+        //Create a list of elements
+        [Test]
+        public void ListOfWords()
+        {
+            List<string> words = new List<string> {
+                "Elodin",
+                "Simmon",
+                "Kvothe",
+                "The Cthaeh",
+                "Auri",
+                "Elxa Dal",
+                "Cinder",
+                "Kilvin",
+                "Encanis",
+                "Laurian",
+                "Erlus"
+            };
+            for (int i = 0; i < words.Count; i++)
+            {
+                var firstLetter = words[i].First();
+                if (firstLetter.Equals("E"))
+                {
+                    words.RemoveAt(i);
+                }
+                else if (firstLetter.Equals("A"))
+                    {
+                    words.RemoveAt(i);
+                    };
+            }
+            words.Count.ShouldBe(6);
+        }
+
+        //Total price of all list elements
+        public int TotalPrice()
+        {
+            List<string> pricesString = new List<string> { "$1", "$5", "$10", "$20", "$100" };
+            var pricesInteger = new List<int>();
+            for (int i = 0; i < pricesString.Count; i++)
+            {
+                var webElement = pricesString[i];
+                //var price = webElement.Substring(0, 1).Convert.ToInt32();//How to convert int to string?
+                //pricesInteger.Add(price);
+            }
+            int totalprice = pricesInteger.Sum();
+            return totalprice;
+        }
+
+
+        //Collection of unique random names
+        public List<string> UniqueNamesList()
+        {
+            List<string> uniqueNames = new List<string>();
+                        
+            if (uniqueNames.Count < 10)
+            {
+                var faker = new Faker();
+                //uniqueNames.Add(faker.Name.FirstName);//???
+            }
+            return uniqueNames;
+        }
+        
     }
 }
