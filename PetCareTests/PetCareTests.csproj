@@ -37,6 +37,21 @@
     <Reference Include="Bogus, Version=22.1.3.0, Culture=neutral, PublicKeyToken=fa1bb3f3f218129a, processorArchitecture=MSIL">
       <HintPath>..\packages\Bogus.22.1.3\lib\net40\Bogus.dll</HintPath>
     </Reference>
+    <Reference Include="dnkUtils, Version=1.0.0.42065, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\dnkUtils.1.0.0.42065\lib\net461\dnkUtils.dll</HintPath>
+    </Reference>
+    <Reference Include="log2html, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\log2html.1.0.0.26\lib\net461\log2html.dll</HintPath>
+    </Reference>
+    <Reference Include="log2html.Support, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\log2html.Support.1.0.0.26\lib\net461\log2html.Support.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="nunit.framework, Version=3.10.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
       <HintPath>..\packages\NUnit.3.10.1\lib\net45\nunit.framework.dll</HintPath>
     </Reference>
@@ -61,6 +76,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GlobalTestSetup.cs" />
+    <Compile Include="Logger.cs" />
     <Compile Include="Tutorial\HashSetExample.cs" />
     <Compile Include="Configuration\Config.cs" />
     <Compile Include="Pages\AboutMePage.cs" />
@@ -87,9 +104,13 @@
     <Compile Include="Tutorial\TestExample.cs" />
     <Compile Include="URL\URLs.cs" />
     <Compile Include="Utils\UniqueValues.cs" />
+    <Compile Include="Verification\ObjectAssertExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <Content Include="log4net.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

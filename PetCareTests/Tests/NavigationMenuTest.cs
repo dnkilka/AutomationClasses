@@ -4,12 +4,8 @@ using PetCareTest.Pages;
 using PetCareTests.Selenium;
 using PetCareTests.URL;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Shouldly;
-
+using dnk.log2html.Support;
+using PetCareTests.Verification;
 
 namespace PetCareTests.Tests
 {
@@ -21,28 +17,29 @@ namespace PetCareTests.Tests
         {
             IWebDriver driver = DriverUtils.CreateDriver();
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
+	        TestWrapper.Test(driver, () =>
+	        {
+				// Open Landing Page
+				URLs.OpenUrl(driver);
 
-            // Open Landing Page
-            URLs.OpenUrl(driver);
+	            var navigationMenu = new Navigation_Menu(driver);
 
-            var navigationMenu = new Navigation_Menu(driver);
+	            var aboutMePage = navigationMenu.ClickAboutMeLink();
+	            aboutMePage.GetHeaderText().ShouldBe("About Me", "About Me");
 
-            var aboutMePage = navigationMenu.ClickAboutMeLink();
-            aboutMePage.GetHeaderText().ShouldBe("About Me");
+	            var contactsPage = navigationMenu.ClickContactMeLink();
+	            contactsPage.GetHeaderText().ShouldBe("Contact Me", "Contact Me");
 
-            var contactsPage = navigationMenu.ClickContactMeLink();
-            contactsPage.GetHeaderText().ShouldBe("Contact Me");
+	            var picturesPage = navigationMenu.ClickPicturesLink();
+	            picturesPage.GetHeaderText().ShouldBe("Pictures", "Pictures");
 
-            var picturesPage = navigationMenu.ClickPicturesLink();
-            picturesPage.GetHeaderText().ShouldBe("Pictures");
+	            var pricesPage = navigationMenu.ClickPricesLink();
+	            pricesPage.GetHeaderTitle().ShouldBe("Prices", "Prices");
 
-            var pricesPage = navigationMenu.ClickPricesLink();
-            pricesPage.GetHeaderTitle().ShouldBe("Prices");
+	            var careRequestPage = navigationMenu.ClickCareRequestLink();
+	            careRequestPage.GetHeaderText().ShouldBe("Care Request", "Care Request");
 
-            var careRequestPage = navigationMenu.ClickCareRequestLink();
-            careRequestPage.GetHeaderText().ShouldBe("Care Request");
-
-            driver.Quit();
-        }
+			});
+		}
     }
 }

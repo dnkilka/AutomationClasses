@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
 using PetCareTests.Configuration;
 using PetCareTests.Pages;
 
@@ -13,7 +8,9 @@ namespace PetCareTests.URL
 	{
 		public static LandingPage OpenUrl(IWebDriver driver)
 		{
-			driver.Navigate().GoToUrl(Config.GetURL("AlexsPetsURL"));
+			var url = Config.GetURL("AlexsPetsURL") + "index.html";
+			Logger.Log.Info("Openning URL " + url);
+			driver.Navigate().GoToUrl(url);
 			return new LandingPage(driver);	
 		}
 	}

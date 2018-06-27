@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using PetCareTests.Configuration;
 
 namespace PetCareTest.Pages
 {
@@ -36,7 +37,7 @@ namespace PetCareTest.Pages
             for (int i = 0; i < imagesList.Count; i++)
             {
                 var webElement = imagesList[i];
-                var source = webElement.GetAttribute("src");
+                var source = webElement.GetAttribute("src").Replace(Config.GetURL("AlexsPetsURL"), string.Empty);
                 imagesSources.Add(source);
             }
 
