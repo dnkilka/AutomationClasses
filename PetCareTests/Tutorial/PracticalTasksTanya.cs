@@ -124,64 +124,86 @@ namespace PetCareTests.Tutorial
         }
 
         //Create a list of elements
-        [Test]
-        public void ListOfWords()
-        {
-            List<string> words = new List<string> {
-                "Elodin",
-                "Simmon",
-                "Kvothe",
-                "The Cthaeh",
-                "Auri",
-                "Elxa Dal",
-                "Cinder",
-                "Kilvin",
-                "Encanis",
-                "Laurian",
-                "Erlus"
-            };
-            for (int i = 0; i < words.Count; i++)
-            {
-                var firstLetter = words[i].First();
-                if (firstLetter.Equals("E"))
-                {
-                    words.RemoveAt(i);
-                }
-                else if (firstLetter.Equals("A"))
-                    {
-                    words.RemoveAt(i);
-                    };
-            }
-            words.Count.ShouldBe(6);
-        }
+	    [Test]
+	    public void ListOfWords()
+	    {
+		    List<string> words = new List<string>
+		    {
+			    "Elodin",
+			    "Simmon",
+			    "Kvothe",
+			    "The Cthaeh",
+			    "Auri",
+			    "Elxa Dal",
+			    "Cinder",
+			    "Kilvin",
+			    "Encanis",
+			    "Laurian",
+			    "Erlus"
+		    };
+		    var charsToRemove = new string[] {"A", "E", "Z", "x"};
+		    for (int i = words.Count - 1; i >= 0; i--)
+		    {
+			    //var firstLetter = words[i].First();
+			    //if (firstLetter == 'E')
+			    //{
+				   // words.RemoveAt(i);
+				   // i--;
+			    //}
+			    //else if (firstLetter == 'A')
+			    //{
+				   // words.RemoveAt(i);
+				   // i--;
+			    //}
+			    for (int j = 0; j < charsToRemove.Length; j++)
+			    {
+				    if (words[i].StartsWith(charsToRemove[j]))
+				    {
+					    words.RemoveAt(i);
+					    break;
+				    }
+			    }
+		    }
 
-        //Total price of all list elements
-        public int TotalPrice()
+		    words.Count.ShouldBe(6);
+	    }
+
+	    //Total price of all list elements
+		[Test]
+        public void TotalPrice()
         {
             List<string> pricesString = new List<string> { "$1", "$5", "$10", "$20", "$100" };
             var pricesInteger = new List<int>();
             for (int i = 0; i < pricesString.Count; i++)
             {
                 var webElement = pricesString[i];
-                //var price = webElement.Substring(0, 1).Convert.ToInt32();//How to convert int to string?
-                //pricesInteger.Add(price);
+
+	            var integerPart = webElement.Substring(1);
+	            var price = Convert.ToInt32(integerPart);//How to convert int to string?
+                pricesInteger.Add(price);
             }
             int totalprice = pricesInteger.Sum();
-            return totalprice;
+			Console.WriteLine(totalprice);
+            //return totalprice;
         }
 
 
         //Collection of unique random names
-        public List<string> UniqueNamesList()
-        {
-            List<string> uniqueNames = new List<string>();
-                        
-            if (uniqueNames.Count < 10)
-            {
-                var faker = new Faker();
-                //uniqueNames.Add(faker.Name.FirstName);//???
+		[Test]
+        public void UniqueNamesList()
+		{
+			HashSet<string> uniqueNames = new HashSet<string>();
+
+
+            var faker = new Faker();
+	        while(uniqueNames.Count < 10)
+	        {
+		        var firstName = faker.Name.FirstName();
+		        uniqueNames.Add(firstName);//???
+		        uniqueNames.Add(firstName);//???
             }
-            return uniqueNames;
+			Console.WriteLine(string.Join(", ", uniqueNames));
+            //return uniqueNames;
         }
         
     }
