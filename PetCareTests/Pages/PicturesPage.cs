@@ -1,9 +1,8 @@
 ﻿using OpenQA.Selenium;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using NUnit.Framework;
+using PetCareTests;
 using PetCareTests.Configuration;
 
 namespace PetCareTest.Pages
@@ -27,7 +26,9 @@ namespace PetCareTest.Pages
 
         public string GetFirstParagraphText()
         {
-            return FirstParagraph.Text;
+	        var text = FirstParagraph.Text;
+	        Logger.Log.Info($"The first paragraph text was: '{text}'");
+			return text;
         }
 
         public List<string> GetImagesSources()

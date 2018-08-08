@@ -11,6 +11,7 @@ namespace PetCareTests.Tests
     public class AboutMeTest
     {
         [Test]
+        [Category("Smoke")]
         public void AboutMe_Test()
         {
             var driver = DriverUtils.CreateDriver();
